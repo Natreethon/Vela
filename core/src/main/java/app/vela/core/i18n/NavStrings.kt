@@ -2538,7 +2538,6 @@ object RoNavStrings : NavStrings {
  * the distance and the instruction. Road/dest NAMES are DATA and never translated.
  */
 object ThNavStrings : NavStrings {
-    override fun ferry() = "ขึ้นเรือข้ามฟาก"
     override val locale: Locale = Locale("th", "TH")
 
     private fun turnWord(mod: String?): String = when ((mod ?: "").trim().lowercase()) {
@@ -2612,8 +2611,6 @@ object ThNavStrings : NavStrings {
     override fun arrived(): String = "คุณมาถึงจุดหมายแล้ว"
 
     override fun destinationSide(left: Boolean): String = if (left) "จุดหมายของคุณอยู่ทางซ้าย" else "จุดหมายของคุณอยู่ทางขวา"
-    override fun destinationWillBe(left: Boolean?): String =
-        left?.let { if (it) "จุดหมายของคุณจะอยู่ทางซ้าย" else "จุดหมายของคุณจะอยู่ทางขวา" } ?: destinationAhead()
 
     override fun startNav(firstInstruction: String): String = "เริ่มการนำทาง $firstInstruction"
 
