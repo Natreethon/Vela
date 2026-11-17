@@ -302,7 +302,6 @@
     <string name="settings_import_unreadable">เปิดไฟล์นั้นไม่ได้</string>
     <string name="settings_import_wrong_format">ไม่พบสถานที่ในไฟล์นั้น Vela อ่านไฟล์ที่ส่งออกจาก Vela เอง และไฟล์ GPX, KML หรือ GeoJSON ที่บันทึกจากแอปแผนที่อื่น</string>
     <string name="settings_import_wrong_format_named">ไม่พบสถานที่ในไฟล์ %1$s นั้น</string>
-    <string name="settings_lists_import_is_places">ไฟล์นั้นเก็บสถานที่ที่บันทึกไว้ ไม่ใช่รายการ นำเข้าได้จากการตั้งค่า &gt; สถานที่ที่บันทึกไว้ &gt; นำเข้า</string>
     <string name="settings_import_no_picker">อุปกรณ์นี้ไม่มีตัวเลือกไฟล์ จึงเลือกไฟล์ไม่ได้</string>
     <string name="settings_no_saved_places">ยังไม่มีสถานที่ที่บันทึกไว้</string>
     <string name="settings_export">ส่งออก</string>
@@ -418,8 +417,6 @@
     <string name="settings_trip_share_first">จุดแรกที่เหลืออยู่: %1$s, %2$s ตรวจสอบว่าไม่ใช่ที่ที่ระบุตัวตนของคุณได้</string>
     <string name="settings_trip_share_trimmed">แชร์แบบตัดแล้ว</string>
     <string name="settings_trip_share_full">แชร์เส้นทางทั้งหมด</string>
-    <string name="settings_trip_save_phone">บันทึกลงโทรศัพท์</string>
-    <string name="settings_trip_saved">บันทึกเส้นทางทั้งหมดแล้ว</string>
     <string name="settings_trip_scrub_short">การขับครั้งนี้สั้นกว่าระยะตัด จึงไม่เหลือช่วงกลางให้แชร์ ลองใช้ระยะที่สั้นลง</string>
     <string name="settings_trip_delete">ลบการเดินทาง</string>
     <string name="settings_trip_delete_selected">ลบ (%1$d)</string>
@@ -439,8 +436,6 @@
     <string name="settings_trip_batch_left_out">ไม่รวม %1$d รายการเพราะสั้นกว่าระยะตัด ระยะที่สั้นลงอาจเก็บรายการเหล่านี้ไว้ได้</string>
     <string name="settings_trip_batch_none">การเดินทางที่เลือกทั้งหมดสั้นกว่าระยะตัด จึงไม่เหลืออะไรให้แชร์ ลองใช้ระยะที่สั้นลง</string>
     <string name="settings_trip_batch_confirm">แชร์ zip</string>
-    <string name="settings_trip_batch_share_full">แชร์เส้นทางทั้งหมด</string>
-    <string name="settings_trip_batch_saved">บันทึกเส้นทางทั้งหมดแล้ว</string>
     <string name="settings_name_trips">ตั้งชื่อการเดินทางแต่ละครั้งเมื่อบันทึก</string>
     <string name="settings_name_trips_hint">หลังการขับที่บันทึกไว้จบลง Vela จะถามว่าจะตั้งชื่ออะไร ปิดไว้เป็นค่าเริ่มต้น คุณเปลี่ยนชื่อการเดินทางในรายการด้านล่างได้เสมอ</string>
     <string name="trip_name_prompt_title">ตั้งชื่อการขับครั้งนี้</string>
@@ -908,18 +903,6 @@
     <string name="transit_nav_from">จาก %1$s</string>
     <string name="transit_nav_get_off">ลงที่ %1$s</string>
     <string name="transit_nav_next">ถัดไป</string>
-    <string name="welcome_trips_title">การขับรถของคุณ</string>
-    <string name="welcome_trips_intro">เก็บไว้ในโทรศัพท์เครื่องนี้เพื่อให้คุณเล่นซ้ำการขับรถหรือแนบไปกับรายงานข้อบกพร่องได้ ไม่มีข้อมูลใดออกจากโทรศัพท์ เว้นแต่คุณจะแชร์เอง</string>
-    <string name="welcome_trips_save">บันทึกการขับรถของฉันไว้ในโทรศัพท์เครื่องนี้</string>
-    <string name="welcome_trips_clear">ลบการขับรถหลังจาก 30 วัน</string>
-    <string name="settings_trip_auto_clear">ลบการขับรถหลังจาก 30 วัน</string>
-    <string name="settings_trip_auto_clear_hint">การขับรถที่บันทึกไว้นานกว่า 30 วันจะถูกลบโดยอัตโนมัติ</string>
-    <string name="transit_notice_next_is_yours">ลงที่ป้ายถัดไป: %1$s</string>
-    <string name="transit_notice_to">ไป %1$s</string>
-    <string name="transit_notice_to_destination">ไปยังจุดหมายของคุณ</string>
-    <plurals name="transit_notice_stops_left">
-        <item quantity="other">เหลืออีก %d ป้าย</item>
-    </plurals>
     <string name="place_last_available">เที่ยวสุดท้าย</string>
     <string name="place_transit_prefer">ต้องการ</string>
     <string name="transit_min_late">ช้า %1$d นาที</string>
@@ -1432,8 +1415,6 @@
     <string name="settings_zoom_to_turn_floor_region">ระดับภูมิภาค</string>
     <string name="settings_zoom_to_turn_floor_far">ไกล</string>
     <string name="settings_zoom_to_turn_floor_hint">แผนที่ซูมออกได้ไกลแค่ไหนเพื่อให้จุดเลี้ยวถัดไปอยู่บนหน้าจอ แต่ละระดับไกลขึ้นประมาณสี่เท่า ระดับที่ไกลจะไม่แสดงชื่อถนนเพื่อแสดงถนนข้างหน้าได้มากขึ้น</string>
-    <string name="settings_road_numbers">แสดงหมายเลขถนนก่อน</string>
-    <string name="settings_road_numbers_hint">ถนนที่มีหมายเลขทางหลวงจะเรียกด้วยหมายเลข ไม่ใช่ชื่ออย่าง Pearl Harbor Memorial Expressway ใช้ใต้ลูกศร บนหน้าจอในรถ และในเส้นทางของเส้นทางถัดไป</string>
     <string name="settings_puck_shape">ไอคอนนำทาง</string>
     <string name="settings_puck_shape_arrow">ลูกศร</string>
     <string name="settings_puck_shape_car">รถยนต์</string>
