@@ -1987,6 +1987,10 @@ fun DirectionsPanel(
                             RouteOption(r, selected, fastestEtaSeconds = fastestEta, isFastest = i == fastestIdx, dark = dark, ink = ink, dim = dim, flockCount = flockOnRoute.getOrElse(i) { 0 }) { onSelectRoute(i) }
                         }
                     }
+                    if (currentMode == TravelMode.DRIVE) {
+                        Spacer(Modifier.height(10.dp))
+                        EvTripRow((activeRoute ?: routes.first()).distanceMeters, ink, dim, onSearchAlongRoute)
+                    }
                     Spacer(Modifier.height(14.dp))
                     Text(stringResource(R.string.place_search_along_route), style = MaterialTheme.typography.labelMedium, color = dim)
                     Spacer(Modifier.height(6.dp))

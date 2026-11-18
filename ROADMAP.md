@@ -257,6 +257,9 @@ Small items, one pull request each.
 Each of these passed its unit tests and has not been seen or heard where it matters. Take one
 off the list when it has been.
 
+- The electric-car battery estimate on the driving directions (`core/ev/EvEnergy`, `ui/place/EvTrip.kt`).
+  Flat consumption from the model's real-world average; compare the arrival percent with the car's
+  own on a few real drives.
 - Data job fixes: the camera bake asks for CSV and tries again, the maxspeed bake skips a
   region with no tagged roads, a failed velamaps.org deploy no longer stops GitHub Pages, and
   the baseline profile run warns instead of failing when it may not open a pull request. Each

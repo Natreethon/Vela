@@ -107,6 +107,10 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
   "Stops" sheet comes back to it, so you can drag it into place and add the next. A stop added
   during a drive goes last; open the sheet to move it.
 - Avoid tolls, highways, ferries or cameras. Set Leave now, Depart at or Arrive by.
+- Fuel or electric car. For an electric car, pick the model (Thai-market EVs with real-world
+  consumption) or enter its battery and consumption, set the battery percent, and the driving
+  directions show the battery used and left on arrival, with a warning and a charger search
+  below 10%.
 - Walking uses the open foot router. "Bike routes prefer bike lanes and quiet streets" is on by
   default.
 - A step list before you start. Tap a step to see it on the map.
