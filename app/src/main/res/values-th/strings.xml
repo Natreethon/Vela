@@ -1485,4 +1485,27 @@
     <string name="place_avoid_short_ferries">เรือข้ามฟาก</string>
     <string name="place_avoid_short_cameras">กล้อง</string>
     <string name="trip_shortcut_themed">ใช้ไอคอนตามธีม</string>
+    <string name="vehicle_title">ประเภทรถ</string>
+    <string name="vehicle_fuel">รถน้ำมัน</string>
+    <string name="vehicle_electric">รถยนต์ไฟฟ้า</string>
+    <string name="ev_pill">%1$s · %2$d%%</string>
+    <string name="ev_battery_now">แบตเตอรี่ตอนนี้: %1$d%%</string>
+    <string name="ev_battery_less">ลดแบตเตอรี่</string>
+    <string name="ev_battery_more">เพิ่มแบตเตอรี่</string>
+    <string name="ev_car_model">รุ่นรถ</string>
+    <string name="ev_custom">กำหนดเอง</string>
+    <string name="ev_custom_kwh">ความจุแบตเตอรี่ที่ใช้ได้ (kWh)</string>
+    <string name="ev_custom_consumption">อัตราการใช้ไฟ (kWh/100 กม.)</string>
+    <string name="ev_range_full">ระยะทางวิ่งได้เมื่อชาร์จเต็ม: ประมาณ %1$s</string>
+    <string name="ev_model_spec">%1$s kWh · %2$s kWh/100 กม. · ประมาณ %3$s</string>
+    <string name="ev_basis_real">อัตราการใช้ไฟเป็นค่าเฉลี่ยจากการใช้งานจริง จาก ev-database.org</string>
+    <string name="ev_basis_claimed">อัตราการใช้ไฟคำนวณจากระยะทางที่ผู้ผลิตเคลมตามมาตรฐาน %1$s ใช้งานจริงมักกินไฟมากกว่านี้</string>
+    <string name="ev_arrival">แบตเตอรี่เมื่อถึงปลายทางโดยประมาณ %1$d%% (ใช้ไป %2$d%%)</string>
+    <string name="ev_low">แบตเตอรี่จะเหลือน้อยเมื่อถึงปลายทาง ควรวางแผนแวะชาร์จ</string>
+    <string name="ev_cannot_reach">แบตเตอรี่ไม่พอไปถึงปลายทาง เส้นทางนี้ใช้ประมาณ %1$d%% ควรแวะชาร์จระหว่างทาง</string>
+    <string name="ev_find_chargers">หาสถานีชาร์จระหว่างทาง</string>
+    <string name="ev_estimate_hint">เป็นค่าประมาณ ความเร็ว ทางขึ้นเขา อากาศร้อน และการเปิดแอร์ทำให้ต่างไปได้</string>
+    <string name="ev_dialog_save">บันทึก</string>
+    <string name="ev_dialog_cancel">ยกเลิก</string>
+    <string name="settings_vehicle_hint">เลือกรถยนต์ไฟฟ้าเพื่อดูแบตเตอรี่ที่ใช้และที่เหลือเมื่อถึงปลายทางในเส้นทางขับรถ</string>
 </resources>

@@ -1,6 +1,7 @@
 package app.vela.ui.settings.sections
 
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -78,6 +79,35 @@ internal fun NavigationSettingsScreen(vm: MapViewModel, onBack: () -> Unit) {
             onCheckedChange = { app.vela.ui.RoutePicker.set(context, it) },
             hint = stringResource(R.string.settings_route_picker_hint),
         )
+
+        // The car the driving directions are for: fuel, or electric with its battery (EvVehicle).
+        GroupDivider()
+        var vehicleOpen by remember { mutableStateOf(false) }
+        androidx.compose.foundation.layout.Column(
+            Modifier
+                .fillMaxWidth()
+                .settingsAnchor(stringResource(R.string.vehicle_title))
+                .dpadHighlight(DpadShape(10.dp))
+                .clickable { vehicleOpen = true }
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+        ) {
+            Text(stringResource(R.string.vehicle_title), style = MaterialTheme.typography.bodyLarge)
+            val ev = app.vela.ui.EvVehicle
+            Text(
+                if (ev.electric.value) stringResource(R.string.ev_pill, ev.model?.name ?: stringResource(R.string.ev_custom), ev.batteryPercent.intValue)
+                else stringResource(R.string.vehicle_fuel),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(top = 2.dp),
+            )
+            Text(
+                stringResource(R.string.settings_vehicle_hint),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 2.dp),
+            )
+        }
+        if (vehicleOpen) app.vela.ui.place.EvVehicleDialog(onClose = { vehicleOpen = false })
 
         // Route bar (issue #228). Off by default: it is extra chrome on the nav screen, and the
         // congestion color already on the route line covers some of the same ground.

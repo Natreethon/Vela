@@ -1517,4 +1517,27 @@
     <string name="place_avoid_short_ferries">Ferries</string>
     <string name="place_avoid_short_cameras">Cameras</string>
     <string name="trip_shortcut_themed">Match themed icons</string>
+    <string name="vehicle_title">Vehicle</string>
+    <string name="vehicle_fuel">Fuel car</string>
+    <string name="vehicle_electric">Electric car</string>
+    <string name="ev_pill">%1$s · %2$d%%</string>
+    <string name="ev_battery_now">Battery now: %1$d%%</string>
+    <string name="ev_battery_less">Less battery</string>
+    <string name="ev_battery_more">More battery</string>
+    <string name="ev_car_model">Car model</string>
+    <string name="ev_custom">Custom</string>
+    <string name="ev_custom_kwh">Usable battery (kWh)</string>
+    <string name="ev_custom_consumption">Consumption (kWh/100 km)</string>
+    <string name="ev_range_full">Range on a full charge: about %1$s</string>
+    <string name="ev_model_spec">%1$s kWh · %2$s kWh/100 km · about %3$s</string>
+    <string name="ev_basis_real">Consumption is a real-world average from ev-database.org.</string>
+    <string name="ev_basis_claimed">Consumption comes from the maker\'s claimed %1$s range, so real use is usually higher.</string>
+    <string name="ev_arrival">Battery on arrival: about %1$d%% (uses %2$d%%)</string>
+    <string name="ev_low">The battery will be low on arrival. Plan a charge.</string>
+    <string name="ev_cannot_reach">Not enough battery to get there. The drive needs about %1$d%%. Charge on the way.</string>
+    <string name="ev_find_chargers">Find chargers along the route</string>
+    <string name="ev_estimate_hint">An estimate: speed, hills, heat and air conditioning change it.</string>
+    <string name="ev_dialog_save">Save</string>
+    <string name="ev_dialog_cancel">Cancel</string>
+    <string name="settings_vehicle_hint">Pick an electric car to see the battery used and left on arrival in driving directions.</string>
 </resources>

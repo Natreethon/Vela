@@ -364,6 +364,10 @@ fun GoogleStyleDirectionsPanel(
                         if (onShowTraffic != null && routes.isNotEmpty()) {
                             TrafficOnTapRow(onShowTraffic, ink, Modifier.padding(top = 2.dp))
                         }
+                        // Fuel or electric; for an electric car, the battery left on arrival.
+                        if (currentMode == TravelMode.DRIVE) {
+                            EvTripRow(route.distanceMeters, ink, dim, onSearchAlongRoute, Modifier.padding(top = 6.dp))
+                        }
                     }
                 }
                 // The alternates pane, over the body: every route with its time, how much longer it is,

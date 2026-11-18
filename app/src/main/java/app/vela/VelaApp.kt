@@ -139,6 +139,7 @@ class VelaApp : Application(), coil.ImageLoaderFactory {
         app.vela.ui.SatelliteLayer.init(this) // persisted satellite-imagery toggle
         app.vela.ui.LayersButton.init(this) // persisted show/hide of the map layers button
         app.vela.ui.MapTilt.init(this) // two-finger tilt on/off (issue #627)
+        app.vela.ui.EvVehicle.init(this) // fuel or electric car, and the battery for the arrival estimate
         app.vela.ui.NorthLock.init(this) // Settings > Map "Keep north up"
         app.vela.ui.ParkingButton.init(this) // parking button shown with no spot saved (issue #626)
         app.vela.ui.LinkAction.init(this) // what a location link from another app does (discussion #640)
