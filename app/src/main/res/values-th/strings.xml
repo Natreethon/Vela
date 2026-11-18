@@ -1527,4 +1527,6 @@
     <string name="ev_dialog_save">บันทึก</string>
     <string name="ev_dialog_cancel">ยกเลิก</string>
     <string name="settings_vehicle_hint">เลือกรถยนต์ไฟฟ้าเพื่อดูแบตเตอรี่ที่ใช้และที่เหลือเมื่อถึงปลายทางในเส้นทางขับรถ</string>
+    <string name="settings_nav_buildings_3d">แสดงอาคาร 3 มิติขณะนำทาง</string>
+    <string name="settings_nav_buildings_3d_hint">อาคารจะนูนขึ้นบนแผนที่ที่เอียงขณะขับรถ เมื่อซูมใกล้ในเมือง ใช้แบตเตอรี่มากขึ้น ต้องเปิด "อาคาร 3 มิติ" ในการตั้งค่าแผนที่ไว้ด้วย และจะไม่แสดงเมื่อใช้ภาพดาวเทียม</string>
 </resources>

@@ -318,6 +318,8 @@ private const val OSM_COVER_FRAC = 0.18f
 private const val OVL_GATE_MIN_GAP_MS = 1200L
 // 3D buildings rise once the map is tilted past ON and drop below OFF (degrees), fading over FADE.
 private const val B3D_TILT_ON = 20.0
+/** How far from the route a car still not on it takes the route's heading for the camera. */
+private const val PRE_ENGAGE_HEADING_M = 300.0
 private const val B3D_TILT_OFF = 12.0
 private const val B3D_FADE_MS = 350L
 // The style light for extrusions. 0 draws every face in the palette color (no wall reads as a
@@ -2578,8 +2580,11 @@ fun VelaMapView(
     // tile, which a gate on visibility pays twice per tilt. It is hidden outright only with the
     // setting off and in a drive, where the car-mode strip above re-lays out the basemap in the
     // same frame anyway. A walk or a ride keeps it at opacity 0.
-    val b3dKeep = app.vela.ui.Buildings3d.on.value && !satelliteOn && !driveNavNow
-    val buildings3d = b3dKeep && !navMode && tilted3d.value
+    // Settings > Navigation "Show 3D buildings while driving" (NavBuildings3d) lets a drive keep
+    // them: drawn while the drive camera is tilted, at the battery cost above.
+    val b3dDrive = driveNavNow && app.vela.ui.NavBuildings3d.on.value
+    val b3dKeep = app.vela.ui.Buildings3d.on.value && !satelliteOn && (!driveNavNow || b3dDrive)
+    val buildings3d = b3dKeep && (!navMode || b3dDrive) && tilted3d.value
     LaunchedEffect(buildings3d, b3dKeep, styleRef) {
         runCatching {
             val style = styleRef ?: return@runCatching
@@ -5466,7 +5471,13 @@ fun VelaMapView(
                 // fit-route case and zooming the whole route out.
                 if (!navPuck.engaged) {
                     val loc = displayLoc ?: myLocation
-                    val brg = lastNavBearing ?: displayBearing ?: 0f
+                    // The live heading first: the last one held here froze the pre-engage camera on
+                    // its first bearing, often north for a car that had not moved yet. With no
+                    // heading at all (stopped, no course, too far from the line to snap), face
+                    // along the route near the car instead of north.
+                    val brg = displayBearing ?: lastNavBearing
+                        ?: snapToRouteWindowed(loc, null, routePolyline, routeCum, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, maxM = PRE_ENGAGE_HEADING_M)?.second
+                        ?: 0f
                     val moved = lastNavTarget?.let { it.distanceTo(loc) > 4.0 } ?: true
                     val turned = lastNavBearing?.let { kotlin.math.abs(((brg - it + 540f) % 360f) - 180f) > 2f } ?: true
                     if ((moved || turned) && !scaling[0] && !twoDown[0]) {

@@ -1560,4 +1560,6 @@
     <string name="ev_dialog_save">Save</string>
     <string name="ev_dialog_cancel">Cancel</string>
     <string name="settings_vehicle_hint">Pick an electric car to see the battery used and left on arrival in driving directions.</string>
+    <string name="settings_nav_buildings_3d">Show 3D buildings while driving</string>
+    <string name="settings_nav_buildings_3d_hint">Buildings stand up on the tilted drive map, close in on city streets. Uses more battery. Needs 3D buildings on in Settings > Map, and hides under satellite imagery.</string>
 </resources>

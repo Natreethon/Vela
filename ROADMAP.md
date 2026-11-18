@@ -257,6 +257,9 @@ Small items, one pull request each.
 Each of these passed its unit tests and has not been seen or heard where it matters. Take one
 off the list when it has been.
 
+- 3D buildings on the drive camera (`NavBuildings3d`) and the pre-engage camera facing along the
+  route: built and compiled only. Check frame rate and battery on a city drive, and the start
+  heading in a parking lot.
 - The electric-car battery estimate on the driving directions (`core/ev/EvEnergy`, `ui/place/EvTrip.kt`).
   Flat consumption from the model's real-world average; compare the arrival percent with the car's
   own on a few real drives.

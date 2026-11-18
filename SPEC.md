@@ -3884,7 +3884,8 @@ a wall. At MapLibre's default 0.5 roofs draw about 40 percent brighter than the 
 roof stays within 1 to 3 percent of the palette color and a wall facing away from the light draws
 up to 25 percent darker.
 
-Extrusions show only with the 3D buildings setting on, satellite off, navigation off and the
+Extrusions show only with the 3D buildings setting on, satellite off, navigation off (or a drive
+with Settings > Navigation "Show 3D buildings while driving" on, `NavBuildings3d`) and the
 camera tilted: on at `B3D_TILT_ON` (20 degrees), off below `B3D_TILT_OFF` (12). Seen straight
 down, perspective leans tall buildings over the streets beside them. The change is an opacity
 transition of `B3D_FADE_MS` (350 ms).
@@ -3894,7 +3895,7 @@ tilt gate is paint only: flat, the layer stays visible at opacity 0, which MapLi
 render, so tilting again re-lays out nothing. A visibility change re-lays out every basemap tile
 (the flip cost in 4.7b), which a gate on visibility pays twice per tilt. The price of staying
 visible: tiles at z17 and closer build the extrusion geometry while flat. The layer is hidden
-outright with the setting off and when a drive starts: after the fade when it is on screen, at
+outright with the setting off and when a drive starts without the drive setting: after the fade when it is on screen, at
 once when it is at opacity 0, which for a drive is the frame the car-mode strip re-lays out the
 basemap anyway. A walk or a ride keeps it at opacity 0.
 
