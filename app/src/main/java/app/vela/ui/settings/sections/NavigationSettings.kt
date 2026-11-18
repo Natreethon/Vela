@@ -142,6 +142,14 @@ internal fun NavigationSettingsScreen(vm: MapViewModel, onBack: () -> Unit) {
             onCheckedChange = { app.vela.ui.NavBuildings3d.set(context, it) },
             hint = stringResource(R.string.settings_nav_buildings_3d_hint),
         )
+        // The Android Auto drive map: heading-up and tilted, whatever "Keep north up" says (CarHeadingUp).
+        GroupDivider()
+        ToggleRow(
+            label = stringResource(R.string.settings_car_heading_up),
+            checked = app.vela.ui.CarHeadingUp.on.value,
+            onCheckedChange = { app.vela.ui.CarHeadingUp.set(context, it) },
+            hint = stringResource(R.string.settings_car_heading_up_hint),
+        )
         // Zoom to the next turn (issue #781): heading-up only, the camera pulls out until the next
         // maneuver sits under the turn card (NavFraming, SPEC 4.7).
         GroupDivider()

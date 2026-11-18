@@ -47,8 +47,10 @@ import kotlin.math.roundToInt
  *
  * Following, the camera is heading-up and tilted ([CarFraming.NAV_TILT_DEG]) with the arrow low
  * in the view, zoomed by speed, during a drive and once the car is moving with no route (the
- * phone's free-drive follow); north-up, flat and centered while parked with no route, with the
- * phone's "Keep north up" on, and after a pan. The route line is colored by live traffic during a
+ * phone's free-drive follow); north-up, flat and centered while parked with no route, after a
+ * pan, with no route and the phone's "Keep north up" on, and in a drive with Settings >
+ * Navigation's Android Auto switch off ([CarFraming.headingUp]). 3D buildings stand up on the
+ * tilted camera from z15 ([CarFraming.buildings3d]). The route line is colored by live traffic during a
  * drive; Google's traffic raster shows with no route when the phone's Traffic layer is on.
  *
  * Vela's own palette goes on the snapshotter's style ([applyTheme], the phone's applyMapTheme), dark at
@@ -194,10 +196,18 @@ class CarMapRenderer(
     private var heldStill = false // the at-rest sensor is held while a drive is on
     private var routeCum: Pair<app.vela.core.model.Route, DoubleArray>? = null // the route's cumulative meters, for the heading at its progress
 
-    /** Whether the following view turns with the car: during a drive, or moving with no route,
-     *  unless the phone's Settings > Map "Keep north up" is on. */
-    private fun headingUp(): Boolean =
-        following && previewRoute == null && !overview && !app.vela.ui.NorthLock.on.value && (navigating() || driving)
+    /** Whether the following view turns with the car (and tilts): during a drive by the car's own
+     *  Settings > Navigation switch (on by default, whatever the phone's "Keep north up" says);
+     *  moving with no route, unless "Keep north up" is on ([CarFraming.headingUp]). */
+    private fun headingUp(): Boolean = CarFraming.headingUp(
+        following = following,
+        preview = previewRoute != null,
+        overview = overview,
+        navigating = navigating(),
+        driving = driving,
+        northLock = app.vela.ui.NorthLock.on.value,
+        carHeadingUp = app.vela.ui.CarHeadingUp.on.value,
+    )
 
     /** The drive-mode screen is up: no route, the map alone, the speed badge drawn. */
     fun setDriveScreen(on: Boolean) { driveScreen = on; requestRender() }
@@ -550,7 +560,7 @@ class CarMapRenderer(
             .withPixelRatio(1.0f)
             .withLogo(false)
         themed = false
-        trafficShown = null; fuelOnlyShown = null
+        trafficShown = null; fuelOnlyShown = null; buildingsShown = null
         snapshotter = runCatching { QuietSnapshotter(carContext, opts) }.getOrNull()?.also { s2 ->
             // Vela's own palette on the car map (the same applyMapTheme the phone runs): until
             // 2026-09-21 the car drew stock Liberty under a darkening color filter, which read as
@@ -711,6 +721,41 @@ class CarMapRenderer(
         ok.onSuccess { android.util.Log.i("VelaCar", "theme applied dark=$night layers=${host.layers.size} in ${android.os.SystemClock.elapsedRealtime() - t0} ms") }
         themed = true
         themedNight = night
+        // The palette starts the extrusions at z17; the car's drive zooms sit lower.
+        applyCarBuildingGeometry(s)
+        buildingsShown = null
+    }
+
+    // Whether `building-3d` is visible on the snapshotter's style; null = not set on this style yet.
+    private var buildingsShown: Boolean? = null
+
+    /** The car's `building-3d`: from [CarFraming.BUILDINGS_MIN_ZOOM], growing to full height by
+     *  [CarFraming.BUILDINGS_FULL_ZOOM], so a car following at town speeds sees buildings stand. */
+    private fun applyCarBuildingGeometry(s: MapSnapshotter) {
+        runCatching {
+            val l = s.getLayer("building-3d") ?: return@runCatching
+            l.setMinZoom(CarFraming.BUILDINGS_MIN_ZOOM.toFloat())
+            fun grow(prop: String) = org.maplibre.android.style.expressions.Expression.interpolate(
+                org.maplibre.android.style.expressions.Expression.linear(),
+                org.maplibre.android.style.expressions.Expression.zoom(),
+                org.maplibre.android.style.expressions.Expression.stop(
+                    CarFraming.BUILDINGS_MIN_ZOOM.toFloat(),
+                    org.maplibre.android.style.expressions.Expression.product(
+                        org.maplibre.android.style.expressions.Expression.get(prop),
+                        org.maplibre.android.style.expressions.Expression.literal(CarFraming.BUILDINGS_START_SCALE.toFloat()),
+                    ),
+                ),
+                org.maplibre.android.style.expressions.Expression.stop(
+                    CarFraming.BUILDINGS_FULL_ZOOM.toFloat(),
+                    org.maplibre.android.style.expressions.Expression.get(prop),
+                ),
+            )
+            l.setProperties(
+                org.maplibre.android.style.layers.PropertyFactory.fillExtrusionHeight(grow("render_height")),
+                org.maplibre.android.style.layers.PropertyFactory.fillExtrusionBase(grow("render_min_height")),
+                org.maplibre.android.style.layers.PropertyFactory.fillExtrusionVerticalGradient(true),
+            )
+        }.onFailure { android.util.Log.w("VelaCar", "building geometry failed: $it") }
     }
 
     private fun requestRender() {
@@ -830,6 +875,25 @@ class CarMapRenderer(
                 s.getLayer(CarStyle.TRAFFIC_LAYER)?.setProperties(
                     org.maplibre.android.style.layers.PropertyFactory.visibility(
                         if (traffic) org.maplibre.android.style.layers.Property.VISIBLE else org.maplibre.android.style.layers.Property.NONE,
+                    ),
+                )
+            }
+        }
+        // 3D buildings: the phone's "3D buildings", and in a drive its "Show 3D buildings while
+        // driving", drawn while the camera is tilted.
+        val b3d = CarFraming.buildings3d(
+            enabled = app.vela.ui.Buildings3d.on.value,
+            navigating = nav,
+            navEnabled = app.vela.ui.NavBuildings3d.on.value,
+            tiltDeg = tilt,
+            wasShown = buildingsShown == true,
+        )
+        if (b3d != buildingsShown) {
+            buildingsShown = b3d
+            runCatching {
+                s.getLayer("building-3d")?.setProperties(
+                    org.maplibre.android.style.layers.PropertyFactory.visibility(
+                        if (b3d) org.maplibre.android.style.layers.Property.VISIBLE else org.maplibre.android.style.layers.Property.NONE,
                     ),
                 )
             }

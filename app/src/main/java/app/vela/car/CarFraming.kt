@@ -20,6 +20,43 @@ internal object CarFraming {
     const val ZOOM_FAR = 15.0
     const val ZOOM_FAR_KMH = 110.0
 
+    /**
+     * Whether the car's following view turns with the car (and so tilts). During a drive it is
+     * the car's own setting ([carHeadingUp], Settings > Navigation, on by default), not the
+     * phone's "Keep north up" ([northLock]): that one used to hold the car's drive map flat and
+     * north-up. Moving with no route, "Keep north up" still holds it north-up.
+     */
+    fun headingUp(
+        following: Boolean,
+        preview: Boolean,
+        overview: Boolean,
+        navigating: Boolean,
+        driving: Boolean,
+        northLock: Boolean,
+        carHeadingUp: Boolean,
+    ): Boolean {
+        if (!following || preview || overview) return false
+        return if (navigating) carHeadingUp else driving && !northLock
+    }
+
+    /** The car draws `building-3d` from this zoom: the following zoom runs [ZOOM_FAR] to
+     *  [ZOOM_NEAR], and the phone's z17 start left a car in town with no buildings standing. */
+    const val BUILDINGS_MIN_ZOOM = 15.0
+    /** At [BUILDINGS_MIN_ZOOM] the buildings stand at this share of their height, full by [BUILDINGS_FULL_ZOOM]. */
+    const val BUILDINGS_START_SCALE = 0.6
+    const val BUILDINGS_FULL_ZOOM = 16.5
+    /** The buildings stand up once the camera tilts past [BUILDINGS_TILT_ON] and lie down below
+     *  [BUILDINGS_TILT_OFF], the phone's gate; seen straight down they lean over the streets. */
+    const val BUILDINGS_TILT_ON = 20.0
+    const val BUILDINGS_TILT_OFF = 12.0
+
+    /** Whether the car's 3D buildings show: "3D buildings" on, and in a drive "Show 3D buildings
+     *  while driving" on, with the camera tilted (hysteresis on [wasShown]). */
+    fun buildings3d(enabled: Boolean, navigating: Boolean, navEnabled: Boolean, tiltDeg: Double, wasShown: Boolean): Boolean {
+        if (!enabled || (navigating && !navEnabled)) return false
+        return if (wasShown) tiltDeg >= BUILDINGS_TILT_OFF else tiltDeg >= BUILDINGS_TILT_ON
+    }
+
     fun navZoom(kmh: Double): Double = ZOOM_NEAR - (kmh / ZOOM_FAR_KMH).coerceIn(0.0, 1.0) * (ZOOM_NEAR - ZOOM_FAR)
 
     /** The camera's distance to the point it looks at, in pixels of a surface [heightPx] tall. */

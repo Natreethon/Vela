@@ -200,6 +200,7 @@ class VelaApp : Application(), coil.ImageLoaderFactory {
         app.vela.ui.GoogleFree.init(this) // "Use Vela without Google": mirrors into the :core NoGoogle flag
         app.vela.ui.Buildings3d.init(this)
         app.vela.ui.NavBuildings3d.init(this) // 3D buildings during a drive (Settings > Navigation)
+        app.vela.ui.CarHeadingUp.init(this) // Android Auto drive map heading-up and tilted (Settings > Navigation)
         app.vela.ui.RouteTrail.init(this)
         app.vela.ui.TurnDeclutterPref.init(this)
         app.vela.ui.CategoryChipsPref.init(this)

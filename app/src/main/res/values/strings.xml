@@ -1542,4 +1542,6 @@
     <string name="settings_vehicle_hint">Pick an electric car to see the battery used and left on arrival in driving directions.</string>
     <string name="settings_nav_buildings_3d">Show 3D buildings while driving</string>
     <string name="settings_nav_buildings_3d_hint">Buildings stand up on the tilted drive map, close in on city streets. Uses more battery. Needs 3D buildings on in Settings > Map, and hides under satellite imagery.</string>
+    <string name="settings_car_heading_up">Android Auto: turn and tilt the map while navigating</string>
+    <string name="settings_car_heading_up_hint">On the car screen the map faces the way you drive, tilts in 3D and stands buildings up, even with Keep north up on. Off keeps the car map flat with north at the top.</string>
 </resources>
