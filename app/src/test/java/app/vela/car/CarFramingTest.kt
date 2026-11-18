@@ -69,4 +69,35 @@ class CarFramingTest {
         // The same segment walked the other way crosses at the same place.
         assertEquals(0.5, clip.crossing(38.5449 - 1_500 / m, -121.7405, 38.5449 - 500 / m, -121.7405), 1e-3)
     }
+    @Test fun `a drive on the car turns with the car even with keep north up on`() {
+        assertTrue(CarFraming.headingUp(following = true, preview = false, overview = false, navigating = true, driving = false, northLock = true, carHeadingUp = true))
+        assertTrue(!CarFraming.headingUp(following = true, preview = false, overview = false, navigating = true, driving = true, northLock = false, carHeadingUp = false))
+        // The overview, a pan and a preview stay north-up.
+        assertTrue(!CarFraming.headingUp(following = true, preview = false, overview = true, navigating = true, driving = true, northLock = false, carHeadingUp = true))
+        assertTrue(!CarFraming.headingUp(following = false, preview = false, overview = false, navigating = true, driving = true, northLock = false, carHeadingUp = true))
+        assertTrue(!CarFraming.headingUp(following = true, preview = true, overview = false, navigating = true, driving = true, northLock = false, carHeadingUp = true))
+        // With no route, keep north up still holds.
+        assertTrue(CarFraming.headingUp(following = true, preview = false, overview = false, navigating = false, driving = true, northLock = false, carHeadingUp = true))
+        assertTrue(!CarFraming.headingUp(following = true, preview = false, overview = false, navigating = false, driving = true, northLock = true, carHeadingUp = true))
+        assertTrue(!CarFraming.headingUp(following = true, preview = false, overview = false, navigating = false, driving = false, northLock = false, carHeadingUp = true))
+    }
+
+    @Test fun `car buildings stand up on the tilted camera and follow the settings`() {
+        val tilt = CarFraming.NAV_TILT_DEG
+        assertTrue(CarFraming.buildings3d(enabled = true, navigating = true, navEnabled = true, tiltDeg = tilt, wasShown = false))
+        assertTrue(!CarFraming.buildings3d(enabled = true, navigating = true, navEnabled = false, tiltDeg = tilt, wasShown = false))
+        assertTrue(!CarFraming.buildings3d(enabled = false, navigating = true, navEnabled = true, tiltDeg = tilt, wasShown = false))
+        assertTrue(CarFraming.buildings3d(enabled = true, navigating = false, navEnabled = false, tiltDeg = tilt, wasShown = false))
+        assertTrue(!CarFraming.buildings3d(enabled = true, navigating = true, navEnabled = true, tiltDeg = 0.0, wasShown = false))
+        // Hysteresis between the on and off tilts.
+        assertTrue(!CarFraming.buildings3d(enabled = true, navigating = true, navEnabled = true, tiltDeg = 15.0, wasShown = false))
+        assertTrue(CarFraming.buildings3d(enabled = true, navigating = true, navEnabled = true, tiltDeg = 15.0, wasShown = true))
+    }
+
+    @Test fun `car buildings start within the following zoom range`() {
+        assertTrue(CarFraming.BUILDINGS_MIN_ZOOM <= CarFraming.ZOOM_FAR)
+        assertTrue(CarFraming.BUILDINGS_FULL_ZOOM <= CarFraming.navZoom(30.0))
+        // The drive camera is tilted past the buildings' gate over the whole following range.
+        assertTrue(app.vela.ui.map.NavFraming.tiltAt(CarFraming.ZOOM_FAR, CarFraming.NAV_TILT_DEG) >= CarFraming.BUILDINGS_TILT_ON)
+    }
 }

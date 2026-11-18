@@ -45,3 +45,26 @@ object NavBuildings3d {
     private fun prefs(c: Context) = c.getSharedPreferences("vela_settings", Context.MODE_PRIVATE)
     private const val KEY = "nav_buildings_3d"
 }
+
+/**
+ * Settings > Navigation "Android Auto: turn and tilt the map while navigating" (pref
+ * `car_nav_heading_up`, on by default). On, the car screen's drive map turns with the car and
+ * tilts like the phone's drive camera even with Settings > Map "Keep north up" on, which used to
+ * leave the car's drive map flat and north-up. Off, the car's drive map stays north-up and flat.
+ * The car's overview button still frames the route north-up either way.
+ */
+object CarHeadingUp {
+    val on = mutableStateOf(true)
+
+    fun init(context: Context) {
+        on.value = prefs(context).getBoolean(KEY, true)
+    }
+
+    fun set(context: Context, value: Boolean) {
+        on.value = value
+        prefs(context).edit().putBoolean(KEY, value).apply()
+    }
+
+    private fun prefs(c: Context) = c.getSharedPreferences("vela_settings", Context.MODE_PRIVATE)
+    private const val KEY = "car_nav_heading_up"
+}
