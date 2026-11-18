@@ -161,6 +161,8 @@ What Vela Maps does today, one line per feature. How each one works is in [SPEC.
 - An overview button fits the rest of the route, and Re-center returns to the drive.
 - The compass switches heading-up and north-up. "Start drives north-up" sets the default, and
   "Keep north up" holds every drive north-up.
+- "Show 3D buildings while driving" stands buildings up on the tilted drive map. Before the car
+  reaches the route the drive camera faces along the route instead of north.
 - "Navigation icon" is an arrow, a car, a UFO, a pirate ship or a rubber duck, with "Arrow size" and
   "Arrow colors".
 - "Vibrate on turns", "Keep screen on while navigating" and "Ask before ending navigation".

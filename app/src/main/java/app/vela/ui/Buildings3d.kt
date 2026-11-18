@@ -24,3 +24,24 @@ object Buildings3d {
     private fun prefs(c: Context) = c.getSharedPreferences("vela_settings", Context.MODE_PRIVATE)
     private const val KEY = "buildings_3d"
 }
+
+/**
+ * Settings > Navigation "Show 3D buildings while driving" (pref `nav_buildings_3d`, on in this
+ * build). The drive camera otherwise hides the `building-3d` extrusions to save battery; on, they
+ * draw while the drive camera is tilted, with [Buildings3d] on and satellite imagery off.
+ */
+object NavBuildings3d {
+    val on = mutableStateOf(true)
+
+    fun init(context: Context) {
+        on.value = prefs(context).getBoolean(KEY, true)
+    }
+
+    fun set(context: Context, value: Boolean) {
+        on.value = value
+        prefs(context).edit().putBoolean(KEY, value).apply()
+    }
+
+    private fun prefs(c: Context) = c.getSharedPreferences("vela_settings", Context.MODE_PRIVATE)
+    private const val KEY = "nav_buildings_3d"
+}

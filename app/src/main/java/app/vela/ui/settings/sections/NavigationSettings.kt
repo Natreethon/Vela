@@ -134,6 +134,14 @@ internal fun NavigationSettingsScreen(vm: MapViewModel, onBack: () -> Unit) {
             onCheckedChange = { app.vela.ui.NavNorthUp.set(context, it) },
             hint = stringResource(R.string.settings_nav_north_up_hint),
         )
+        // 3D buildings on the tilted drive camera (NavBuildings3d); a drive hides them otherwise.
+        GroupDivider()
+        ToggleRow(
+            label = stringResource(R.string.settings_nav_buildings_3d),
+            checked = app.vela.ui.NavBuildings3d.on.value,
+            onCheckedChange = { app.vela.ui.NavBuildings3d.set(context, it) },
+            hint = stringResource(R.string.settings_nav_buildings_3d_hint),
+        )
         // Zoom to the next turn (issue #781): heading-up only, the camera pulls out until the next
         // maneuver sits under the turn card (NavFraming, SPEC 4.7).
         GroupDivider()
